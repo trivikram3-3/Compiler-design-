@@ -1,0 +1,28 @@
+%{
+#include <stdio.h>
+
+int words = 0;
+%}
+
+%%
+
+[a-zA-Z]+     { words++; }
+\n            { return 0; }
+.             ;
+
+%%
+
+int yywrap()
+{
+    return 1;
+}
+
+int main()
+{
+    printf("Enter a string: ");
+    yylex();
+
+    printf("\nTotal Words: %d\n", words);
+
+    return 0;
+}
