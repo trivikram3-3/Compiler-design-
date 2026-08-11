@@ -1,0 +1,30 @@
+%{
+#include <stdio.h>
+
+int comments = 0;
+%}
+
+%%
+
+"//".*                              { comments++; }
+"/*"([^*]|\*+[^*/])*\*+"/"         { comments++; }
+
+\n                                  { return 0; }
+.                                   ;
+
+%%
+
+int yywrap()
+{
+    return 1;
+}
+
+int main()
+{
+    printf("Enter C code:\n");
+    yylex();
+
+    printf("\nTotal Comments: %d\n", comments);
+
+    return 0;
+}
