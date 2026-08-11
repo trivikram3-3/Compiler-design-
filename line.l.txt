@@ -1,0 +1,26 @@
+%{
+#include <stdio.h>
+
+int lineno = 1;
+%}
+
+%%
+
+^          { printf("%d ", lineno); }
+\n         { lineno++; printf("\n%d ", lineno); }
+.          { ECHO; }
+
+%%
+
+int yywrap()
+{
+    return 1;
+}
+
+int main()
+{
+    printf("Enter text (Press Ctrl+D to stop):\n");
+    printf("%d ", lineno);
+    yylex();
+    return 0;
+}
