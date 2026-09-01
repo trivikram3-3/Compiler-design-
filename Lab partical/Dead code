@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    int n, i, j;
+    char code[20][100];
+    char var[20][20];
+    int used[20] = {0};
+
+    printf("Enter number of statements: ");
+    scanf("%d", &n);
+
+    printf("Enter Three Address Code statements:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        scanf(" %[^\n]", code[i]);
+
+        sscanf(code[i], "%s", var[i]);
+    }
+
+    /* Find variables used on RHS */
+    for(i = 0; i < n; i++)
+    {
+        for(j = 0; j < n; j++)
+        {
+            if(i != j && strstr(code[j], var[i]) != NULL)
+            {
+                used[i] = 1;
+            }
+        }
+    }
+
+    printf("\nOptimized Code:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        if(used[i])
+            printf("%s\n", code[i]);
+    }
+
+    return 0;
+}
