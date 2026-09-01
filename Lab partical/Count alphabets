@@ -1,0 +1,29 @@
+%{
+#include <stdio.h>
+
+int alphabets = 0;
+int digits = 0;
+%}
+
+%%
+[a-zA-Z]    { alphabets++; }
+[0-9]       { digits++; }
+.           ;
+\n          ;
+%%
+
+int main()
+{
+    printf("Enter the input:\n");
+    yylex();
+
+    printf("\nTotal Alphabets = %d\n", alphabets);
+    printf("Total Digits = %d\n", digits);
+
+    return 0;
+}
+
+int yywrap()
+{
+    return 1;
+}
